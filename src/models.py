@@ -11,7 +11,7 @@ class Farmer(TimestampedBaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=100)
     document_type = models.CharField(max_length=4, choices=[(item.name, item.value) for item in DocumentType])
-    document_value = models.CharField(max_length=15, unique=True)
+    document_value = models.CharField(max_length=14, unique=True)
 
     def __str__(self):
         return self.username
@@ -29,11 +29,11 @@ class Location(TimestampedBaseModel):
 class Farm(TimestampedBaseModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
-    total_area_hectares = models.DecimalField(max_digits=12, decimal_places=2)
-    cultivable_area_hectares = models.DecimalField(max_digits=12, decimal_places=2)
-    vegetation_area_hectares = models.DecimalField(max_digits=12, decimal_places=2)
+    total_area_hectares = models.DecimalField(max_digits=10, decimal_places=2)
+    cultivable_area_hectares = models.DecimalField(max_digits=10, decimal_places=2)
+    vegetation_area_hectares = models.DecimalField(max_digits=10, decimal_places=2)
     cultivations = ArrayField(
-        models.CharField(max_length=50, choices=[(item.name, item.value) for item in CultivationType]),
+        models.CharField(max_length=100, choices=[(item.name, item.value) for item in CultivationType]),
         default=list,
     )
 
