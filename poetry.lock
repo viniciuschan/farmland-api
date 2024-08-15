@@ -648,6 +648,16 @@ files = [
 ]
 
 [[package]]
+name = "validate-docbr"
+version = "1.10.0"
+description = "Validate brazilian documents."
+optional = false
+python-versions = "*"
+files = [
+    {file = "validate_docbr-1.10.0-py3-none-any.whl", hash = "sha256:ff016f180b0c5ecff06abce1d83385924438c4d4c7f5c050e90fb724f1d968bb"},
+]
+
+[[package]]
 name = "virtualenv"
 version = "20.26.3"
 description = "Virtual Python Environment builder"
@@ -681,4 +691,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "1bfd25c7a54a955be715ba4dba1060ef2a0ed7a959f08a47a05611a268cdc153"
+content-hash = "fc489c4668afc250799f9a5a573fd171f5e669954a1cd0088577a94fca9e5c06"
