@@ -1,3 +1,7 @@
-# from django.contrib import admin
+from django.contrib import admin
 
-# Register your models here.
+from src.models import Farm, Farmer, Location
+
+admin.site.register(Farmer)
+admin.site.register(Location)
+admin.site.register(Farm)
