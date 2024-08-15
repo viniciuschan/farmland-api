@@ -1,0 +1,35 @@
+[tool.black]
+line-length = 110
+target-version = ["py312"]
+
+[tool.isort]
+line_length = 110
+include_trailing_comma = true
+known_local_folder = ["src", "tests"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "farmland_api.settings"
+addopts = "-vv"
+
+[tool.poetry]
+name = "farmland-api"
+version = "0.1.0"
+description = "Simple API to handle and provide some farm data to a dashboard"
+authors = ["Vinícius Chan <viniciuschann@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1"
+djangorestframework = "^3.15"
+psycopg2-binary = "^2.9"
+dj-database-url = "^2.2"
+
+[tool.poetry.dev-dependencies]
+ipython = "*"
+pre-commit = "*"
+pytest = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
