@@ -32,6 +32,7 @@ ipython = "*"
 pre-commit = "*"
 pytest = "*"
 pytest-django = "*"
+pytest-freezegun = "*"
 
 [build-system]
 requires = ["poetry-core"]

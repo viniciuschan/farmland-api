@@ -4,39 +4,49 @@ from src.models import Farm, Farmer, Location
 
 
 @pytest.fixture
-def mock_farm_data():
+def mock_farmer_data():
+    yield {
+        "username": "John Dunha",
+        "document_type": "CPF",
+        "document_value": "747.449.360-83",
+    }
+
+
+@pytest.fixture
+def mock_location_data():
+    yield {
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+    }
+
+
+@pytest.fixture
+def mock_farm_data(mock_farmer_data, mock_location_data):
     yield {
         "name": "Yellowstone Farm",
         "total_area_hectares": 150,
         "cultivable_area_hectares": 120,
         "vegetation_area_hectares": 30,
         "cultivations": ["SOY"],
-        "farmer": {
-            "username": "John Dunha",
-            "document_type": "CPF",
-            "document_value": "747.449.360-83",
-        },
-        "location": {
-            "city": "Rio de Janeiro",
-            "state": "RJ",
-        },
+        "farmer": mock_farmer_data,
+        "location": mock_location_data,
     }
 
 
 @pytest.fixture
-def mock_farmer(mock_farm_data):
+def mock_farmer(mock_farmer_data):
     yield Farmer.objects.create(
-        username=mock_farm_data["farmer"]["username"],
-        document_type=mock_farm_data["farmer"]["document_type"],
-        document_value=mock_farm_data["farmer"]["document_value"],
+        username=mock_farmer_data["username"],
+        document_type=mock_farmer_data["document_type"],
+        document_value=mock_farmer_data["document_value"],
     )
 
 
 @pytest.fixture
-def mock_location(mock_farm_data):
+def mock_location(mock_location_data):
     yield Location.objects.create(
-        city=mock_farm_data["location"]["city"],
-        state=mock_farm_data["location"]["state"],
+        city=mock_location_data["city"],
+        state=mock_location_data["state"],
     )
 
 

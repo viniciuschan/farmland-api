@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name="Farmer",
             fields=[
                 ("created_at", models.DateTimeField(default=django.utils.timezone.now, editable=False)),
-                ("updated_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
                 (
                     "id",
                     models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False),
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             name="Location",
             fields=[
                 ("created_at", models.DateTimeField(default=django.utils.timezone.now, editable=False)),
-                ("updated_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
                 (
                     "id",
                     models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False),
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
             name="Farm",
             fields=[
                 ("created_at", models.DateTimeField(default=django.utils.timezone.now, editable=False)),
-                ("updated_at", models.DateTimeField(default=django.utils.timezone.now)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
                 (
                     "id",
                     models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False),

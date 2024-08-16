@@ -2,15 +2,15 @@ import enum
 
 
 class DocumentType(enum.Enum):
-    CPF = "CPF"
     CNPJ = "CNPJ"
+    CPF = "CPF"
 
 
 class CultivationType(enum.Enum):
-    SOY = "Soy"
+    COFFEE = "Coffee"
     CORN = "Corn"
     COTTON = "Cotton"
-    COFFEE = "Coffee"
+    SOY = "Soy"
     SUGAR_CANE = "Sugar Cane"
 
 
