@@ -1,24 +1,7 @@
 import pytest
 
 from src.models import Farm
-from src.serializers import (
-    FarmerSerializer,
-    FarmSerializer,
-    LocationSerializer,
-    clean_doc_characters,
-    sanitize_data,
-)
-
-
-@pytest.mark.parametrize(
-    "input_data, expected_output",
-    [
-        (" 747.449.360-83 ", "74744936083"),
-        (" 48.542.058/0001-93 ", "48542058000193"),
-    ],
-)
-def test_clean_doc_characters(input_data, expected_output):
-    assert clean_doc_characters(input_data) == expected_output
+from src.serializers import FarmerSerializer, FarmSerializer, LocationSerializer, sanitize_data
 
 
 @pytest.mark.parametrize(
@@ -53,7 +36,7 @@ def test_sanitize_data(input_data, sanitized_data):
         ),
     ],
 )
-def test_valid_farmer_serializer(data, expected_username, expected_doc_type, expected_doc_value):
+def test_farmer_serializer_is_valid(data, expected_username, expected_doc_type, expected_doc_value):
     serializer = FarmerSerializer(data=data)
     assert serializer.is_valid() is True
     assert serializer.validated_data["username"] == expected_username
@@ -70,7 +53,7 @@ def test_valid_farmer_serializer(data, expected_username, expected_doc_type, exp
         {"username": "", "document_type": "CPF", "document_value": "747.449.360-83"},
     ],
 )
-def test_invalid_farmer_serializer(data):
+def test_farmer_serializer_is_not_valid(data):
     serializer = FarmerSerializer(data=data)
     assert serializer.is_valid() is False
 
@@ -82,7 +65,7 @@ def test_invalid_farmer_serializer(data):
         ({"city": "<a href='/evilpath'>Ribeirão Preto</a>", "state": "SP"}, "Ribeirão Preto", "SP"),
     ],
 )
-def test_valid_location_serializer(data, expected_city, expected_state):
+def test_location_serializer_is_valid(data, expected_city, expected_state):
     serializer = LocationSerializer(data=data)
     assert serializer.is_valid() is True
     assert serializer.validated_data["city"] == expected_city
@@ -97,14 +80,14 @@ def test_valid_location_serializer(data, expected_city, expected_state):
         ({"city": "Ribeirão Preto", "state": "XX"}, "state"),
     ],
 )
-def test_invalid_location_serializer(data, invalid_attr):
+def test_location_serializer_is_not_valid(data, invalid_attr):
     serializer = LocationSerializer(data=data)
     assert serializer.is_valid() is False
     assert invalid_attr in serializer.errors
 
 
 @pytest.mark.django_db
-def test_farm_create_serializer(mock_farm_data):
+def test_create_serializer_is_valid(mock_farm_data):
     serializer = FarmSerializer(data=mock_farm_data)
     assert serializer.is_valid() is True
     farm = serializer.save()
@@ -124,8 +107,8 @@ def test_farm_create_serializer(mock_farm_data):
 
 
 @pytest.mark.django_db
-def test_farm_update_serializer(mock_farm):
-    data = {
+def test_farm_update_serializer_is_valid(mock_farm):
+    updated_data = {
         "name": "Updated Farm",
         "total_area_hectares": 500,
         "cultivable_area_hectares": 250,
@@ -142,19 +125,59 @@ def test_farm_update_serializer(mock_farm):
         },
     }
 
-    serializer = FarmSerializer(mock_farm, data=data, partial=True)
-    assert serializer.is_valid()
+    serializer = FarmSerializer(mock_farm, data=updated_data, partial=True)
+    assert serializer.is_valid() is True
     farm = serializer.save()
 
     instance = Farm.objects.get(name=farm.name)
-    assert instance.name == data["name"]
-    assert instance.total_area_hectares == data["total_area_hectares"]
-    assert instance.cultivable_area_hectares == data["cultivable_area_hectares"]
-    assert instance.vegetation_area_hectares == data["vegetation_area_hectares"]
-    assert instance.cultivations == data["cultivations"]
-    assert instance.farmer.username == data["farmer"]["username"]
-    assert instance.farmer.document_type == data["farmer"]["document_type"]
-    assert instance.farmer.document_value == data["farmer"]["document_value"]
-    assert instance.farmer.username == data["farmer"]["username"]
-    assert instance.location.city == data["location"]["city"]
-    assert instance.location.state == data["location"]["state"]
+    assert instance.name == updated_data["name"]
+    assert instance.total_area_hectares == updated_data["total_area_hectares"]
+    assert instance.cultivable_area_hectares == updated_data["cultivable_area_hectares"]
+    assert instance.vegetation_area_hectares == updated_data["vegetation_area_hectares"]
+    assert instance.cultivations == updated_data["cultivations"]
+    assert instance.farmer.username == updated_data["farmer"]["username"]
+    assert instance.farmer.document_type == updated_data["farmer"]["document_type"]
+    assert instance.farmer.document_value == updated_data["farmer"]["document_value"]
+    assert instance.farmer.username == updated_data["farmer"]["username"]
+    assert instance.location.city == updated_data["location"]["city"]
+    assert instance.location.state == updated_data["location"]["state"]
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "total_area, cultivable_area, vegetation_area",
+    [
+        (0, 50, 50),
+        (0, 0, 0),
+        (100, 150, -50),
+        (100, -50, -150),
+    ],
+)
+def test_farm_serializer_create_with_invalid_areas(
+    total_area, cultivable_area, vegetation_area, mock_farm_data
+):
+    mock_farm_data["total_area_hectares"] = total_area
+    mock_farm_data["cultivable_area_hectares"] = cultivable_area
+    mock_farm_data["vegetation_area_hectares"] = vegetation_area
+    serializer = FarmSerializer(data=mock_farm_data)
+    assert serializer.is_valid() is False
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "total_area, cultivable_area, vegetation_area",
+    [
+        (0, 50, 50),
+        (0, 0, 0),
+        (100, 150, -50),
+        (100, -50, -150),
+    ],
+)
+def test_farm_serializer_update_with_invalid_areas(
+    total_area, cultivable_area, vegetation_area, mock_farm_data, mock_farm
+):
+    mock_farm_data["total_area_hectares"] = total_area
+    mock_farm_data["cultivable_area_hectares"] = cultivable_area
+    mock_farm_data["vegetation_area_hectares"] = vegetation_area
+    serializer = FarmSerializer(mock_farm, data=mock_farm_data)
+    assert serializer.is_valid() is False

@@ -2,13 +2,9 @@ import bleach
 from rest_framework import serializers
 
 from src.constants import BrazilianState
+from src.exceptions import InvalidDocumentTypeError
 from src.models import Farm, Farmer, Location
-from src.validators import DocumentValidator
-
-
-def clean_doc_characters(value: str) -> str:
-    doc_number = value.replace(".", "").replace("-", "").replace("/", "")
-    return doc_number.strip()
+from src.validators import DocumentValidator, FarmValidator
 
 
 def sanitize_data(value: str) -> str:
@@ -20,18 +16,24 @@ class FarmerSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=100)
     document_value = serializers.CharField(max_length=18)
 
-    def validate_username(self, value: str):
+    def validate_username(self, value: str) -> str:
         return sanitize_data(value)
 
-    def validate(self, data: dict):
+    def validate(self, data: dict) -> dict:
         data = super().validate(data)
-        document_type = data.get("document_type")
-        cleaned_document_value = clean_doc_characters(data.get("document_value"))
-        data["document_value"] = cleaned_document_value
 
-        validator = DocumentValidator(document_type)
-        if not validator.validate(cleaned_document_value):
-            raise serializers.ValidationError("Invalid document")
+        document_type = data.get("document_type")
+        document_value = data.get("document_value")
+
+        try:
+            validator = DocumentValidator(document_type)
+        except InvalidDocumentTypeError:
+            raise serializers.ValidationError("Invalid document type")
+
+        if not validator.validate(document_value):
+            raise serializers.ValidationError("Invalid document value")
+
+        data["document_value"] = validator.clean_punctuations(document_value)
 
         return data
 
@@ -48,12 +50,12 @@ class LocationSerializer(serializers.ModelSerializer):
     city = serializers.CharField(max_length=100)
     state = serializers.CharField(max_length=2)
 
-    def validate_city(self, value):
+    def validate_city(self, value: str) -> str:
         if not value:
             raise serializers.ValidationError("City cannot be empty")
         return sanitize_data(value)
 
-    def validate_state(self, value):
+    def validate_state(self, value: str) -> str:
         if not value:
             raise serializers.ValidationError("State cannot be empty")
 
@@ -77,10 +79,13 @@ class FarmSerializer(serializers.ModelSerializer):
     def validate(self, data: dict) -> dict:
         data = super().validate(data)
 
-        # dont forget: farm area validations
+        validator = FarmValidator(data)
+        if not validator.validate_areas():
+            raise serializers.ValidationError("Invalid areas")
+
         return data
 
-    def create(self, validated_data: dict):
+    def create(self, validated_data: dict) -> Farm:
         farmer_data = validated_data.pop("farmer")
         location_data = validated_data.pop("location")
 
@@ -90,7 +95,7 @@ class FarmSerializer(serializers.ModelSerializer):
         farm = Farm.objects.create(farmer=farmer, location=location, **validated_data)
         return farm
 
-    def update(self, instance: Farm, validated_data: dict):
+    def update(self, instance: Farm, validated_data: dict) -> Farm:
         farmer_data = validated_data.pop("farmer", None)
         location_data = validated_data.pop("location", None)
 
