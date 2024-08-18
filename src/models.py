@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 
 from src.constants import BrazilianState, CultivationType, DocumentType
+from src.managers import FarmManager
 from src.validators import DocumentValidator
 
 
@@ -53,6 +54,8 @@ class Farm(BaseModel):
 
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+
+    objects = FarmManager()
 
     def __str__(self):
         return self.name

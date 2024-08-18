@@ -130,3 +130,29 @@ def test_delete_farm(mock_client, mock_farm):
 
     with pytest.raises(Farm.DoesNotExist):
         mock_farm.refresh_from_db()
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures("mock_farm", "mock_another_farms")
+def test_farm_dashboard(mock_client):
+    url = reverse("farms-dashboard")
+    response = mock_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == {
+        "total_farms": {
+            "count": 4,
+            "area": {"total": "600.00", "cultivation": "480.00", "vegetation": "120.00"},
+        },
+        "farms_per_state": {
+            "SP": {"total_count": 1, "total_area": "150.00"},
+            "RJ": {"total_count": 1, "total_area": "150.00"},
+            "GO": {"total_count": 1, "total_area": "150.00"},
+            "MT": {"total_area": "150.00", "total_count": 1},
+        },
+        "farms_per_cultivation": {
+            "CORN": {"total_farms": 2, "total_cultivable_area": "240.00"},
+            "COTTON": {"total_farms": 1, "total_cultivable_area": "120.00"},
+            "SOY": {"total_farms": 2, "total_cultivable_area": "240.00"},
+            "SUGAR_CANE": {"total_farms": 1, "total_cultivable_area": "120.00"},
+        },
+    }

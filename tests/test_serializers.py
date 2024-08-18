@@ -87,7 +87,7 @@ def test_location_serializer_is_not_valid(data, invalid_attr):
 
 
 @pytest.mark.django_db
-def test_create_serializer_is_valid(mock_farm_data):
+def test_farm_create_serializer_is_valid(mock_farm_data):
     serializer = FarmSerializer(data=mock_farm_data)
     assert serializer.is_valid() is True
     farm = serializer.save()
@@ -131,10 +131,10 @@ def test_farm_update_serializer_is_valid(mock_farm):
 
     instance = Farm.objects.get(name=farm.name)
     assert instance.name == updated_data["name"]
+    assert instance.cultivations == ["CORN", "COTTON", "SOY"]  # sorted for testing purposes
     assert instance.total_area_hectares == updated_data["total_area_hectares"]
     assert instance.cultivable_area_hectares == updated_data["cultivable_area_hectares"]
     assert instance.vegetation_area_hectares == updated_data["vegetation_area_hectares"]
-    assert instance.cultivations == updated_data["cultivations"]
     assert instance.farmer.username == updated_data["farmer"]["username"]
     assert instance.farmer.document_type == updated_data["farmer"]["document_type"]
     assert instance.farmer.document_value == updated_data["farmer"]["document_value"]
@@ -159,6 +159,21 @@ def test_farm_serializer_create_with_invalid_areas(
     mock_farm_data["total_area_hectares"] = total_area
     mock_farm_data["cultivable_area_hectares"] = cultivable_area
     mock_farm_data["vegetation_area_hectares"] = vegetation_area
+    serializer = FarmSerializer(data=mock_farm_data)
+    assert serializer.is_valid() is False
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "cultivations",
+    [
+        [],
+        "INVALID",
+        None,
+    ],
+)
+def test_farm_serializer_create_with_invalid_cultivations(cultivations, mock_farm_data):
+    mock_farm_data["cultivations"] = cultivations
     serializer = FarmSerializer(data=mock_farm_data)
     assert serializer.is_valid() is False
 

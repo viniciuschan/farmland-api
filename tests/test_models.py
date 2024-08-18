@@ -55,3 +55,18 @@ def test_farm_model(mock_farm_data, mock_farmer, mock_location):
     assert Farm.objects.count() == 1
     assert Farmer.objects.count() == 1
     assert Location.objects.count() == 1
+
+
+@pytest.mark.django_db
+def test_farmer_model_total_farms_data(mock_farm_data, mock_farmer, mock_location):
+    mock_farm_data["farmer"] = mock_farmer
+    mock_farm_data["location"] = mock_location
+
+    Farm.objects.create(**mock_farm_data)
+    result = Farm.objects.total_farms_data()
+    assert result == {
+        "total_cultivable_area": "120.00",
+        "total_farms_area": "150.00",
+        "total_farms_count": 1,
+        "total_vegetation_area": "30.00",
+    }

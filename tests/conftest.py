@@ -67,3 +67,40 @@ def mock_farm(mock_farm_data, mock_farmer, mock_location):
         vegetation_area_hectares=mock_farm_data["vegetation_area_hectares"],
         cultivations=mock_farm_data["cultivations"],
     )
+
+
+@pytest.fixture
+def mock_another_farms(mock_farm_data, mock_farmer):
+
+    location1 = Location.objects.create(state="SP", city="São Paulo")
+    Farm.objects.create(
+        farmer=mock_farmer,
+        location=location1,
+        name="Another Farm in SP",
+        total_area_hectares=mock_farm_data["total_area_hectares"],
+        cultivable_area_hectares=mock_farm_data["cultivable_area_hectares"],
+        vegetation_area_hectares=mock_farm_data["vegetation_area_hectares"],
+        cultivations=["SUGAR_CANE"],
+    )
+
+    location2 = Location.objects.create(state="GO", city="Itumbiara")
+    Farm.objects.create(
+        farmer=mock_farmer,
+        location=location2,
+        name="Another Farm in GO",
+        total_area_hectares=mock_farm_data["total_area_hectares"],
+        cultivable_area_hectares=mock_farm_data["cultivable_area_hectares"],
+        vegetation_area_hectares=mock_farm_data["vegetation_area_hectares"],
+        cultivations=["CORN", "COTTON"],
+    )
+
+    location3 = Location.objects.create(state="MT", city="Mato Grosso")
+    Farm.objects.create(
+        farmer=mock_farmer,
+        location=location3,
+        name="Another Farm in MT",
+        total_area_hectares=mock_farm_data["total_area_hectares"],
+        cultivable_area_hectares=mock_farm_data["cultivable_area_hectares"],
+        vegetation_area_hectares=mock_farm_data["vegetation_area_hectares"],
+        cultivations=["SOY", "CORN"],
+    )

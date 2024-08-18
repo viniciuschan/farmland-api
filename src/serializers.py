@@ -1,7 +1,7 @@
 import bleach
 from rest_framework import serializers
 
-from src.constants import BrazilianState
+from src.constants import BrazilianState, CultivationType
 from src.exceptions import InvalidDocumentTypeError
 from src.models import Farm, Farmer, Location
 from src.validators import DocumentValidator, FarmValidator
@@ -79,6 +79,17 @@ class LocationSerializer(serializers.ModelSerializer):
 class FarmSerializer(serializers.ModelSerializer):
     farmer = FarmerSerializer()
     location = LocationSerializer()
+    cultivations = serializers.ListField(child=serializers.CharField(max_length=100))
+
+    def validate_cultivations(self, value: list) -> list:
+        if not value:
+            raise serializers.ValidationError("Cultivations cannot be empty")
+
+        cultivations = set([item.upper() for item in value])
+        if not cultivations.issubset([item.name for item in CultivationType]):
+            raise serializers.ValidationError("Invalid cultivations")
+
+        return list(sorted(cultivations))
 
     def validate(self, data: dict) -> dict:
         data = super().validate(data)
