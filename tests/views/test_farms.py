@@ -13,7 +13,7 @@ def test_create_farm(mock_client, mock_farm_data, mock_farmer_data, mock_locatio
     mock_farm_data["location"] = mock_location_data
 
     response = mock_client.post(url, mock_farm_data, format="json")
-    assert response.status_code == status.HTTP_201_CREATED == 201
+    assert response.status_code == status.HTTP_201_CREATED
 
     farm = Farm.objects.get(id=response.data["id"])
     assert farm.name == "Yellowstone Farm"
@@ -23,7 +23,7 @@ def test_create_farm(mock_client, mock_farm_data, mock_farmer_data, mock_locatio
 
 
 @pytest.mark.django_db
-def test_retrieve_farm(mock_client, mock_farm):
+def test_get_farm(mock_client, mock_farm):
     url = reverse("farms-detail", args=[mock_farm.id])
     response = mock_client.get(url)
     assert response.status_code == status.HTTP_200_OK

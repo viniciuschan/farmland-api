@@ -58,15 +58,36 @@ def test_farm_model(mock_farm_data, mock_farmer, mock_location):
 
 
 @pytest.mark.django_db
-def test_farmer_model_total_farms_data(mock_farm_data, mock_farmer, mock_location):
-    mock_farm_data["farmer"] = mock_farmer
-    mock_farm_data["location"] = mock_location
-
-    Farm.objects.create(**mock_farm_data)
+@pytest.mark.usefixtures("mock_farm", "mock_another_farms")
+def test_farmer_model_total_farms_data():
     result = Farm.objects.total_farms_data()
     assert result == {
-        "total_cultivable_area": "120.00",
-        "total_farms_area": "150.00",
-        "total_farms_count": 1,
-        "total_vegetation_area": "30.00",
+        "total_cultivable_area": "480.00",
+        "total_farms_area": "600.00",
+        "total_farms_count": 4,
+        "total_vegetation_area": "120.00",
+    }
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures("mock_farm", "mock_another_farms")
+def test_farmer_model_farms_per_state():
+    result = Farm.objects.farms_per_state()
+    assert result == {
+        "GO": {"total_area": "150.00", "total_count": 1},
+        "MT": {"total_area": "150.00", "total_count": 1},
+        "RJ": {"total_area": "150.00", "total_count": 1},
+        "SP": {"total_area": "150.00", "total_count": 1},
+    }
+
+
+@pytest.mark.django_db
+@pytest.mark.usefixtures("mock_farm", "mock_another_farms")
+def test_farmer_model_farms_per_cultivation():
+    result = Farm.objects.farms_per_cultivation()
+    assert result == {
+        "CORN": {"total_cultivable_area": "240.00", "total_farms": 2},
+        "COTTON": {"total_cultivable_area": "120.00", "total_farms": 1},
+        "SOY": {"total_cultivable_area": "240.00", "total_farms": 2},
+        "SUGAR_CANE": {"total_cultivable_area": "120.00", "total_farms": 1},
     }

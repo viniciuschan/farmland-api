@@ -19,7 +19,7 @@ def test_create_farmer(mock_farmer_data, mock_client):
 
 
 @pytest.mark.django_db
-def test_retrieve_farmer(mock_client, mock_farmer):
+def test_get_farmer(mock_client, mock_farmer):
     url = reverse("farmers-detail", args=[mock_farmer.id])
     response = mock_client.get(url)
     assert response.status_code == status.HTTP_200_OK
@@ -52,7 +52,6 @@ def test_partial_update_farmer(mock_client, mock_farmer):
     data = {"username": "John Updated"}
 
     response = mock_client.patch(url, data, format="json")
-    # breakpoint()
     assert response.status_code == status.HTTP_200_OK
 
     mock_farmer.refresh_from_db()

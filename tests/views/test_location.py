@@ -18,7 +18,7 @@ def test_create_location(mock_client, mock_location_data):
 
 
 @pytest.mark.django_db
-def test_retrieve_location(mock_client, mock_location):
+def test_get_location(mock_client, mock_location):
     url = reverse("locations-detail", args=[mock_location.id])
 
     response = mock_client.get(url)

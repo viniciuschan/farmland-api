@@ -131,7 +131,7 @@ def test_farm_update_serializer_is_valid(mock_farm):
 
     instance = Farm.objects.get(name=farm.name)
     assert instance.name == updated_data["name"]
-    assert instance.cultivations == ["CORN", "COTTON", "SOY"]  # sorted for testing purposes
+    assert instance.cultivations == ["CORN", "COTTON", "SOY"]
     assert instance.total_area_hectares == updated_data["total_area_hectares"]
     assert instance.cultivable_area_hectares == updated_data["cultivable_area_hectares"]
     assert instance.vegetation_area_hectares == updated_data["vegetation_area_hectares"]

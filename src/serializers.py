@@ -25,8 +25,8 @@ class FarmerSerializer(serializers.ModelSerializer):
         document_type = data.get("document_type")
         document_value = data.get("document_value")
 
-        if document_type or document_value:
-            # If I want update a doc for some reason, I need to provide both fields
+        # If I want update a doc for some reason, I need to provide both fields
+        if document_type and document_value:
             try:
                 validator = DocumentValidator(document_type)
             except InvalidDocumentTypeError:
