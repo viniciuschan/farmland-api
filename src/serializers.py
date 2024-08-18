@@ -25,21 +25,24 @@ class FarmerSerializer(serializers.ModelSerializer):
         document_type = data.get("document_type")
         document_value = data.get("document_value")
 
-        try:
-            validator = DocumentValidator(document_type)
-        except InvalidDocumentTypeError:
-            raise serializers.ValidationError("Invalid document type")
+        if document_type or document_value:
+            # If I want update a doc for some reason, I need to provide both fields
+            try:
+                validator = DocumentValidator(document_type)
+            except InvalidDocumentTypeError:
+                raise serializers.ValidationError("Invalid document type")
 
-        if not validator.validate(document_value):
-            raise serializers.ValidationError("Invalid document value")
+            if not validator.validate(document_value):
+                raise serializers.ValidationError("Invalid document value")
 
-        data["document_value"] = validator.clean_punctuations(document_value)
+            data["document_value"] = validator.clean_punctuations(document_value)
 
         return data
 
     class Meta:
         model = Farmer
         fields = (
+            "id",
             "username",
             "document_type",
             "document_value",
@@ -67,6 +70,7 @@ class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = (
+            "id",
             "city",
             "state",
         )
@@ -78,10 +82,21 @@ class FarmSerializer(serializers.ModelSerializer):
 
     def validate(self, data: dict) -> dict:
         data = super().validate(data)
+        total_area = data.get("total_area_hectares")
+        cultivable_area = data.get("cultivable_area_hectares")
+        vegetation_area = data.get("vegetation_area_hectares")
 
-        validator = FarmValidator(data)
-        if not validator.validate_areas():
-            raise serializers.ValidationError("Invalid areas")
+        # I'm assuming that the farm areas can be updated only if both 3 attrs are present
+        if all(
+            [
+                total_area is not None,
+                cultivable_area is not None,
+                vegetation_area is not None,
+            ]
+        ):
+            validator = FarmValidator(data)
+            if not validator.validate_areas():
+                raise serializers.ValidationError("Invalid areas")
 
         return data
 

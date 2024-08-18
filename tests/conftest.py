@@ -1,6 +1,12 @@
 import pytest
+from rest_framework.test import APIClient
 
 from src.models import Farm, Farmer, Location
+
+
+@pytest.fixture
+def mock_client():
+    return APIClient()
 
 
 @pytest.fixture

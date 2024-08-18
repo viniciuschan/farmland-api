@@ -74,9 +74,17 @@ def test_document_validator_clean_punctuations(document_type, input_data, expect
     assert cleaned_data == expected_output
 
 
-def test_document_validator_document_type_is_not_valid():
+@pytest.mark.parametrize(
+    "document_type",
+    [
+        "",
+        "RG",
+        None,
+    ],
+)
+def test_document_validator_document_type_is_not_valid(document_type):
     with pytest.raises(InvalidDocumentTypeError):
-        DocumentValidator("INVALID_TYPE").validate("12345678901")
+        DocumentValidator(document_type).validate("12345678901")
 
 
 @pytest.mark.parametrize(
