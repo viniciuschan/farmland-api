@@ -1,0 +1,647 @@
+openapi: 3.0.3
+info:
+  title: Farmland API
+  version: 1.0.0
+  description: Simple API to handle and provide some farm data to a dashboard
+paths:
+  /farmers/:
+    get:
+      operationId: farmers_list
+      tags:
+      - farmers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Farmer'
+          description: ''
+    post:
+      operationId: farmers_create
+      tags:
+      - farmers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farmer'
+          description: ''
+  /farmers/{id}/:
+    get:
+      operationId: farmers_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farmer.
+        required: true
+      tags:
+      - farmers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farmer'
+          description: ''
+    put:
+      operationId: farmers_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farmer.
+        required: true
+      tags:
+      - farmers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farmer'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farmer'
+          description: ''
+    patch:
+      operationId: farmers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farmer.
+        required: true
+      tags:
+      - farmers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFarmer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFarmer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFarmer'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farmer'
+          description: ''
+    delete:
+      operationId: farmers_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farmer.
+        required: true
+      tags:
+      - farmers
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /farms/:
+    get:
+      operationId: farms_list
+      tags:
+      - farms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Farm'
+          description: ''
+    post:
+      operationId: farms_create
+      tags:
+      - farms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+  /farms/{id}/:
+    get:
+      operationId: farms_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farm.
+        required: true
+      tags:
+      - farms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    put:
+      operationId: farms_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farm.
+        required: true
+      tags:
+      - farms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Farm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Farm'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    patch:
+      operationId: farms_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farm.
+        required: true
+      tags:
+      - farms
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFarm'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+    delete:
+      operationId: farms_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this farm.
+        required: true
+      tags:
+      - farms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /farms/dashboard/:
+    get:
+      operationId: farms_dashboard_retrieve
+      tags:
+      - farms
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Farm'
+          description: ''
+  /locations/:
+    get:
+      operationId: locations_list
+      tags:
+      - locations
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+          description: ''
+    post:
+      operationId: locations_create
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /locations/{id}/:
+    get:
+      operationId: locations_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    put:
+      operationId: locations_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    patch:
+      operationId: locations_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLocation'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+    delete:
+      operationId: locations_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this location.
+        required: true
+      tags:
+      - locations
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    DocumentTypeEnum:
+      enum:
+      - CNPJ
+      - CPF
+      type: string
+      description: |-
+        * `CNPJ` - CNPJ
+        * `CPF` - CPF
+    Farm:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        total_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        cultivable_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        vegetation_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        cultivations:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        farmer:
+          $ref: '#/components/schemas/Farmer'
+        location:
+          $ref: '#/components/schemas/Location'
+      required:
+      - cultivable_area_hectares
+      - cultivations
+      - farmer
+      - id
+      - location
+      - name
+      - total_area_hectares
+      - vegetation_area_hectares
+    Farmer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 100
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        document_value:
+          type: string
+          maxLength: 18
+      required:
+      - document_type
+      - document_value
+      - id
+      - username
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+      required:
+      - city
+      - id
+      - state
+    PatchedFarm:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        total_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        cultivable_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        vegetation_area_hectares:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        cultivations:
+          type: array
+          items:
+            type: string
+            maxLength: 100
+        farmer:
+          $ref: '#/components/schemas/Farmer'
+        location:
+          $ref: '#/components/schemas/Location'
+    PatchedFarmer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        username:
+          type: string
+          maxLength: 100
+        document_type:
+          $ref: '#/components/schemas/DocumentTypeEnum'
+        document_value:
+          type: string
+          maxLength: 18
+    PatchedLocation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        city:
+          type: string
+          maxLength: 100
+        state:
+          type: string
+          maxLength: 2
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
