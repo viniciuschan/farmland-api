@@ -10,12 +10,14 @@
 | Docker | https://docs.docker.com/get-docker/ |
 | Git | https://git-scm.com/downloads |
 | Postgres 16.4 | https://www.postgresql.org/download/ |
-| Python 3.12+ | https://www.python.org/downloads/ |
 | Poetry 1.8+ | https://pypi.org/project/poetry/ |
+| Python 3.12+ | https://www.python.org/downloads/ |
+| Django 5.1+ | https://pypi.org/project/Django/ |
 
 
 # Getting Started
-Since this service is running in docker-compose containers, all you need in your machine is Docker and Git. There are some useful dev commands in the Makefile I prepared. So you can run the project locally as it follows:
+Since this service is running in docker-compose containers, all you need in your machine is Docker and Git.
+There are some useful dev commands in the Makefile. So you can run the project locally as it follows:
 
 1. Clone this repository:
 ```
