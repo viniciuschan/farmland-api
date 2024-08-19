@@ -7,7 +7,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 ping_view = lambda request: HttpResponse("pong!")
 
 urlpatterns = [
-    path("", include("src.urls")),
+    path("api/", include("src.urls")),
     path("admin/", admin.site.urls),
     path("ping/", ping_view),
     # API documentation

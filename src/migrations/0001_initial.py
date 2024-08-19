@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                     models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False),
                 ),
                 ("username", models.CharField(max_length=100)),
-                ("document_type", models.CharField(choices=[("CPF", "CPF"), ("CNPJ", "CNPJ")], max_length=4)),
+                ("document_type", models.CharField(choices=[("CNPJ", "CNPJ"), ("CPF", "CPF")], max_length=4)),
                 ("document_value", models.CharField(max_length=14, unique=True)),
             ],
             options={
@@ -100,10 +100,10 @@ class Migration(migrations.Migration):
                     django.contrib.postgres.fields.ArrayField(
                         base_field=models.CharField(
                             choices=[
-                                ("SOY", "Soy"),
+                                ("COFFEE", "Coffee"),
                                 ("CORN", "Corn"),
                                 ("COTTON", "Cotton"),
-                                ("COFFEE", "Coffee"),
+                                ("SOY", "Soy"),
                                 ("SUGAR_CANE", "Sugar Cane"),
                             ],
                             max_length=100,

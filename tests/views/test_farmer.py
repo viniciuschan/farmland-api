@@ -5,6 +5,11 @@ from rest_framework import status
 from src.models import Farmer
 
 
+def test_farmers_url():
+    url = reverse("farmers-list")
+    assert url == "/api/farmers/"
+
+
 @pytest.mark.django_db
 def test_create_farmer(mock_farmer_data, mock_client):
     url = reverse("farmers-list")

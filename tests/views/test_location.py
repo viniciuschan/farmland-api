@@ -5,6 +5,11 @@ from rest_framework import status
 from src.models import Location
 
 
+def test_locations_url():
+    url = reverse("locations-list")
+    assert url == "/api/locations/"
+
+
 @pytest.mark.django_db
 def test_create_location(mock_client, mock_location_data):
     url = reverse("locations-list")
