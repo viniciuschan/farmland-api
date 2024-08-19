@@ -71,7 +71,6 @@ def mock_farm(mock_farm_data, mock_farmer, mock_location):
 
 @pytest.fixture
 def mock_another_farms(mock_farm_data, mock_farmer):
-
     location1 = Location.objects.create(state="SP", city="São Paulo")
     Farm.objects.create(
         farmer=mock_farmer,
@@ -102,5 +101,5 @@ def mock_another_farms(mock_farm_data, mock_farmer):
         total_area_hectares=mock_farm_data["total_area_hectares"],
         cultivable_area_hectares=mock_farm_data["cultivable_area_hectares"],
         vegetation_area_hectares=mock_farm_data["vegetation_area_hectares"],
-        cultivations=["SOY", "CORN"],
+        cultivations=["SOY"],
     )

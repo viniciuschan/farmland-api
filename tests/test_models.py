@@ -86,8 +86,8 @@ def test_farmer_model_farms_per_state():
 def test_farmer_model_farms_per_cultivation():
     result = Farm.objects.total_farms_per_cultivation()
     assert result == {
-        "CORN": {"percentage_area": "0.5", "total_farms": 2},
-        "COTTON": {"percentage_area": "0.25", "total_farms": 1},
-        "SOY": {"percentage_area": "0.5", "total_farms": 2},
-        "SUGAR_CANE": {"percentage_area": "0.25", "total_farms": 1},
+        "CORN": {"percentage": "0.2", "total_farms": 1},
+        "COTTON": {"percentage": "0.2", "total_farms": 1},
+        "SOY": {"percentage": "0.4", "total_farms": 2},
+        "SUGAR_CANE": {"percentage": "0.2", "total_farms": 1},
     }

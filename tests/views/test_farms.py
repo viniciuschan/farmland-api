@@ -155,10 +155,10 @@ def test_farm_dashboard(mock_client):
             "MT": {"total_area": "150.00", "total_count": 1},
         },
         "total_farms_per_cultivation": {
-            "CORN": {"percentage_area": "0.5", "total_farms": 2},
-            "COTTON": {"percentage_area": "0.25", "total_farms": 1},
-            "SOY": {"percentage_area": "0.5", "total_farms": 2},
-            "SUGAR_CANE": {"percentage_area": "0.25", "total_farms": 1},
+            "CORN": {"percentage": "0.2", "total_farms": 1},
+            "COTTON": {"percentage": "0.2", "total_farms": 1},
+            "SOY": {"percentage": "0.4", "total_farms": 2},
+            "SUGAR_CANE": {"percentage": "0.2", "total_farms": 1},
         },
     }
 
