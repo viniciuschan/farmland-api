@@ -82,7 +82,7 @@ def mock_another_farms(mock_farm_data, mock_farmer):
         cultivations=["SUGAR_CANE"],
     )
 
-    location2 = Location.objects.create(state="GO", city="Itumbiara")
+    location2 = Location.objects.create(state="SP", city="São Paulo")
     Farm.objects.create(
         farmer=mock_farmer,
         location=location2,

@@ -74,10 +74,9 @@ def test_farmer_model_total_farms_data():
 def test_farmer_model_farms_per_state():
     result = Farm.objects.farms_per_state()
     assert result == {
-        "GO": {"total_area": "150.00", "total_count": 1},
-        "MT": {"total_area": "150.00", "total_count": 1},
-        "RJ": {"total_area": "150.00", "total_count": 1},
-        "SP": {"total_area": "150.00", "total_count": 1},
+        "MT": {"total_count": 1, "total_area": "150.00"},
+        "RJ": {"total_count": 1, "total_area": "150.00"},
+        "SP": {"total_count": 2, "total_area": "300.00"},
     }
 
 

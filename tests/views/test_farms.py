@@ -149,10 +149,9 @@ def test_farm_dashboard(mock_client):
             "area": {"total": "600.00", "cultivation": "480.00", "vegetation": "120.00"},
         },
         "farms_per_state": {
-            "SP": {"total_count": 1, "total_area": "150.00"},
+            "SP": {"total_count": 2, "total_area": "300.00"},
             "RJ": {"total_count": 1, "total_area": "150.00"},
-            "GO": {"total_count": 1, "total_area": "150.00"},
-            "MT": {"total_area": "150.00", "total_count": 1},
+            "MT": {"total_count": 1, "total_area": "150.00"},
         },
         "total_farms_per_cultivation": {
             "CORN": {"percentage": "0.2", "total_farms": 1},
