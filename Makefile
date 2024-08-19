@@ -22,7 +22,7 @@ shell:
 	docker-compose exec farmland-api su -c "python manage.py shell"
 
 run:
-	docker-compose up
+	docker-compose up -d
 
 drop:
 	docker-compose down
