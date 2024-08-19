@@ -84,10 +84,10 @@ def test_farmer_model_farms_per_state():
 @pytest.mark.django_db
 @pytest.mark.usefixtures("mock_farm", "mock_another_farms")
 def test_farmer_model_farms_per_cultivation():
-    result = Farm.objects.farms_per_cultivation()
+    result = Farm.objects.total_farms_per_cultivation()
     assert result == {
-        "CORN": {"total_cultivable_area": "240.00", "total_farms": 2},
-        "COTTON": {"total_cultivable_area": "120.00", "total_farms": 1},
-        "SOY": {"total_cultivable_area": "240.00", "total_farms": 2},
-        "SUGAR_CANE": {"total_cultivable_area": "120.00", "total_farms": 1},
+        "CORN": {"percentage_area": "0.5", "total_farms": 2},
+        "COTTON": {"percentage_area": "0.25", "total_farms": 1},
+        "SOY": {"percentage_area": "0.5", "total_farms": 2},
+        "SUGAR_CANE": {"percentage_area": "0.25", "total_farms": 1},
     }

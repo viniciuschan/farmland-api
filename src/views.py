@@ -31,7 +31,7 @@ class FarmViewSet(viewsets.ModelViewSet):
         farms_per_state = Farm.objects.farms_per_state()
 
         # Pie chart by cultivation
-        farms_per_cultivation = Farm.objects.farms_per_cultivation()
+        total_farms_per_cultivation = Farm.objects.total_farms_per_cultivation()
 
         data = {
             "total_farms": {
@@ -43,7 +43,7 @@ class FarmViewSet(viewsets.ModelViewSet):
                 },
             },
             "farms_per_state": farms_per_state,
-            "farms_per_cultivation": farms_per_cultivation,
+            "total_farms_per_cultivation": total_farms_per_cultivation,
         }
 
         return Response(data, status.HTTP_200_OK)

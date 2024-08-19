@@ -154,10 +154,29 @@ def test_farm_dashboard(mock_client):
             "GO": {"total_count": 1, "total_area": "150.00"},
             "MT": {"total_area": "150.00", "total_count": 1},
         },
-        "farms_per_cultivation": {
-            "CORN": {"total_farms": 2, "total_cultivable_area": "240.00"},
-            "COTTON": {"total_farms": 1, "total_cultivable_area": "120.00"},
-            "SOY": {"total_farms": 2, "total_cultivable_area": "240.00"},
-            "SUGAR_CANE": {"total_farms": 1, "total_cultivable_area": "120.00"},
+        "total_farms_per_cultivation": {
+            "CORN": {"percentage_area": "0.5", "total_farms": 2},
+            "COTTON": {"percentage_area": "0.25", "total_farms": 1},
+            "SOY": {"percentage_area": "0.5", "total_farms": 2},
+            "SUGAR_CANE": {"percentage_area": "0.25", "total_farms": 1},
         },
+    }
+
+
+@pytest.mark.django_db
+def test_farm_dashboard_with_empty_data(mock_client):
+    url = reverse("farms-dashboard")
+    response = mock_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == {
+        "farms_per_state": {},
+        "total_farms": {
+            "area": {
+                "cultivation": "0.00",
+                "total": "0.00",
+                "vegetation": "0.00",
+            },
+            "count": 0,
+        },
+        "total_farms_per_cultivation": {},
     }

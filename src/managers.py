@@ -51,26 +51,31 @@ class FarmManager(models.Manager):
             for item in qs
         }
 
-    def farms_per_cultivation(self) -> dict:
+    def total_farms_per_cultivation(self) -> dict:
         class Unnest(Func):
             function = "unnest"
             template = "%(function)s(%(expressions)s)"
+
+        total_cultivable_area = self.aggregate(
+            total_cultivable_area=Sum(
+                "cultivable_area_hectares",
+                default=Decimal("0.00"),
+            )
+        )["total_cultivable_area"]
 
         qs = (
             self.annotate(cultivation=Unnest("cultivations"))
             .values("cultivation")
             .annotate(
                 total_farms=Count("id"),
-                total_cultivable_area=Cast(
-                    Sum(F("cultivable_area_hectares"), default=Decimal("0.00")), output_field=CharField()
-                ),
+                area=Sum(F("cultivable_area_hectares"), default=Decimal("0.00")),
             )
         )
 
         return {
             item["cultivation"]: {
                 "total_farms": item["total_farms"],
-                "total_cultivable_area": item["total_cultivable_area"],
+                "percentage_area": str(item["area"] / total_cultivable_area),
             }
             for item in qs
         }
