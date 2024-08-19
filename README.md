@@ -65,6 +65,6 @@ Endpoint: **http://localhost:8000/api/farms/**
 
 ### Dashboard:
 This is the main feature of the project.
-You can make a GET request to the endpoint and it's going to filter some data of the current DB to provide some informations that allows you to create a dashboard.
+You can make a GET request to this endpoint and it's going to query the current DB to provide some data that allows you to provide a dashboard.
 
 Endpoint: **http://localhost:8000/api/farms/dashboard/**
