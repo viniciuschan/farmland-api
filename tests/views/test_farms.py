@@ -97,7 +97,7 @@ def test_update_farm(mock_client, mock_farm):
         "vegetation_area_hectares": 250,
         "cultivations": ["CORN", "COTTON"],
         "farmer": {
-            "username": "Jane Dunha",
+            "username": "John Updated",
             "document_type": "CNPJ",
             "document_value": "14.963.945/0001-13",
         },
@@ -115,7 +115,7 @@ def test_update_farm(mock_client, mock_farm):
     assert mock_farm.cultivable_area_hectares == 250
     assert mock_farm.vegetation_area_hectares == 250
     assert mock_farm.cultivations == ["CORN", "COTTON"]
-    assert mock_farm.farmer.username == "Jane Dunha"
+    assert mock_farm.farmer.username == "John Updated"
     assert mock_farm.farmer.document_type == "CNPJ"
     assert mock_farm.farmer.document_value == "14963945000113"
     assert mock_farm.location.city == "Manaus"

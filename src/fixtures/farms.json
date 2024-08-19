@@ -1,0 +1,67 @@
+[
+    {
+        "model": "src.Farm",
+        "fields": {
+            "name": "Farm 1",
+            "total_area_hectares": 500.00,
+            "cultivable_area_hectares": 400.00,
+            "vegetation_area_hectares": 100.00,
+            "cultivations": ["SUGAR_CANE", "COFFEE"],
+            "farmer": "11d5b509-9ea9-4761-a25d-b26a7f58d6c8",
+            "location": "ed326891-7e53-4f0b-98a6-8d30624529cc",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "src.Farm",
+        "fields": {
+            "name": "Farm 2",
+            "total_area_hectares": 500.00,
+            "cultivable_area_hectares": 400.00,
+            "vegetation_area_hectares": 100.00,
+            "cultivations": ["SUGAR_CANE"],
+            "farmer": "11d5b509-9ea9-4761-a25d-b26a7f58d6c8",
+            "location": "ee9b7796-470d-4a8a-82c8-041535cc852a",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "src.Farm",
+        "fields": {
+            "name": "Farm 3",
+            "total_area_hectares": 500.00,
+            "cultivable_area_hectares": 400.00,
+            "vegetation_area_hectares": 100.00,
+            "cultivations": ["SOY", "CORN"],
+            "farmer": "9c5852b2-28df-4391-a89d-2af1dbc7b55d",
+            "location": "e126a2fb-3b8e-4f43-9260-d650cebdd3c6",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "src.Farm",
+        "fields": {
+            "name": "Farm 4",
+            "total_area_hectares": 500.00,
+            "cultivable_area_hectares": 400.00,
+            "vegetation_area_hectares": 100.00,
+            "cultivations": ["SOY", "COTTON"],
+            "farmer": "9c5852b2-28df-4391-a89d-2af1dbc7b55d",
+            "location": "e126a2fb-3b8e-4f43-9260-d650cebdd3c6",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "src.Farm",
+        "fields": {
+            "name": "Farm 5",
+            "total_area_hectares": 500.00,
+            "cultivable_area_hectares": 400.00,
+            "vegetation_area_hectares": 100.00,
+            "cultivations": ["SOY"],
+            "farmer": "9c5852b2-28df-4391-a89d-2af1dbc7b55d",
+            "location": "e126a2fb-3b8e-4f43-9260-d650cebdd3c6",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    }
+]

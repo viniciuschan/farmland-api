@@ -1,0 +1,22 @@
+[
+    {
+        "model": "src.Farmer",
+        "pk": "11d5b509-9ea9-4761-a25d-b26a7f58d6c8",
+        "fields": {
+            "username": "john_doe",
+            "document_type": "CPF",
+            "document_value": "24244111077",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    },
+    {
+        "model": "src.Farmer",
+        "pk": "9c5852b2-28df-4391-a89d-2af1dbc7b55d",
+        "fields": {
+            "username": "john_dunha",
+            "document_type": "CNPJ",
+            "document_value": "90490561000109",
+            "updated_at": "2024-08-19T12:00:00Z"
+        }
+    }
+]
