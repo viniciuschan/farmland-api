@@ -11,6 +11,7 @@
 | Git | https://git-scm.com/downloads |
 | Postgres 16.4 | https://www.postgresql.org/download/ |
 | Python 3.12+ | https://www.python.org/downloads/ |
+| Poetry 1.8+ | https://pypi.org/project/poetry/ |
 
 
 # Getting Started
